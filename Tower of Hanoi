@@ -1,0 +1,12 @@
+def Hanoi(a,b,c,n,s=0):
+    'a,b,c means the tower of our game. n means n plates. s is times used to complete the game'
+    if n == 1:
+        s += 1
+        print(a,'->',c)
+        return s
+    else:
+        s = Hanoi(a,c,b,n-1,s)
+        print(a,'->', c)
+        s += 1
+        s = Hanoi(b,a,c,n-1,s)
+        return s

@@ -1,0 +1,10 @@
+import random
+random.randint(1,8)
+random.random()
+random.randrange(1,15,4)
+random.uniform(1,9)
+random.shuffle(list(range(1,10)))
+
+import datetime
+datetime.date.today()
+datetime.time(15,12,2)

@@ -1,0 +1,16 @@
+def Is_primenum(num):
+    L = [num-(num//i)*i for i in range(2,num//2+1)]
+    if 0 in L:
+        return False
+    else:
+        return True
+def Is_monisionnum(n):
+    i = 0        
+    primenums = (i for i in range(2,99999) if Is_primenum(i) == True)
+    while i < n:
+        num = 2**next(primenums) - 1
+        if Is_primenum(num) == True:
+            i += 1
+    return num
+
+print(Is_monisionnum(6))

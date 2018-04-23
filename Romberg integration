@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import numpy as np
+def compute(R,i,j,f,a,b):
+    h = b-a
+    if j == 1:
+        if i == 1:
+            return h/2*(f(a)+f(b))
+        else:
+            hk = h/(2**(i-1))
+            s=0
+            for x in map(f,list(np.arange(a+hk,a+2**(i-1)*hk,2*hk))):
+               s+=x
+            return 1/2*(R[i-2,j-1]+hk*2*s)
+    else:
+        return R[i-1,j-1-1]+(R[i-1,j-1-1]-R[i-1-1,j-1-1])/(4**(j-1)-1)
+def Rom_integration(f,maxerror,a=0,b=1,max_i=40,max_j=40):
+    R=np.zeros((max_i,max_j))
+    R[0,0]=compute(R,0+1,0+1,f,a,b)
+    for i in list(range(1,max_i)):
+        for j in list(range(0,i+1)):
+            R[i,j]=compute(R,i+1,j+1,f,a,b)
+        if np.abs(R[i,i]-R[i-1,i-1])<maxerror:
+            return R
+    print('Error!R_matrix too small')
+    
+
+L=Rom_integration(np.log,1E-4,1,2)

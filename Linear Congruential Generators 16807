@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script 
+
+"""
+import time
+from matplotlib import pyplot as plot
+def Random_S():
+    T=time.localtime(time.time())
+    I0 = T.tm_year-2000+70*(T.tm_mon+12*(T.tm_mday+31*(T.tm_hour+23*(T.tm_min+59*T.tm_sec))))
+    a = 7**5
+    m = 2**31-1
+    q = m//a
+    r = m%a
+    i = 0
+    while i <=2e7:
+        yield I0/m
+        I1 =(a*(I0%q)-r*(I0//q))%m
+        I0 = I1
+        i = i+1
+    return 'DONE'
+R= Random_S()
+x = next(R)
+plot.figure(figsize=(50,50))
+while 1:
+    try:
+        y = next(R)
+        plot.scatter(x,y,c = 'red',s=1)
+        x = y
+    except StopIteration as error:
+        print(error.value)
+        break
+plot.show()
